@@ -38,7 +38,13 @@ function Navbar() {
         >
           Blogs
         </li>
-        <li className="text-black px-4 py-2 cursor-pointer hover:opacity-70 transition-opacity">Services</li>
+        <li 
+          onClick={() => navigate('/service')}
+          className="text-black px-4 py-2 rounded-full cursor-pointer shadow-md hover:shadow-lg transition-all"
+          style={{backgroundColor: isActive('/service') ? "#CDEAFA" : "transparent"}}
+        >
+          Services
+        </li>
       </ul>
 
       {/* Login */}
