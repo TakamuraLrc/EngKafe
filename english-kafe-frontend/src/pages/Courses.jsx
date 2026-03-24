@@ -4,126 +4,15 @@ import CourseCard from '../components/CourseCard'
 import TestimonialVideo from '../components/TestimonialVideo'
 import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
+import { getAllCourses, getCoursesByPage, getTotalPages } from '../services/courseService'
 
 function Courses() {
   const [currentPage, setCurrentPage] = useState(1)
   
-  // Sample course data - replace with actual data
-  const allCourses = [
-    {
-      id: 1,
-      image: '/src/assets/courses/IELTS speaking.jpg',
-      title: 'IELTS SPEAKING',
-      description: 'Build confidence with guided speaking practice and real exam-style questions.',
-      price: '3000 ฿ผน',
-      rating: 4.5,
-      reviews: 1500
-    },
-    {
-      id: 2,
-      image: '/src/assets/courses/ielts writing.jpg',
-      title: 'IELTS WRITING',
-      description: 'Clear structure, grammar guidance, and scoring strategies for stronger essays.',
-      price: '4500 ฿ผน',
-      rating: 4.5,
-      reviews: 1500
-    },
-    {
-      id: 3,
-      image: '/src/assets/courses/daily english.jpg',
-      title: 'EVERYDAY ENGLISH',
-      description: 'Practice real-life conversations and vocabulary for daily communication.',
-      price: '3500 ฿ผน',
-      rating: 4.5,
-      reviews: 1500
-    },
-    {
-      id: 4,
-      image: '/src/assets/courses/grammer.jpg',
-      title: 'GRAMMAR ESSENTIALS',
-      description: 'Understand grammar simply and apply it confidently in speaking and writing.',
-      price: '2500 ฿ผน',
-      rating: 4.5,
-      reviews: 1500
-    },
-    {
-      id: 5,
-      image: '/src/assets/courses/master communation.jpg',
-      title: 'MASTER ENGLISH COMMUNICATION',
-      description: 'Build confidence in real-life conversations through guided video lessons focused on...',
-      price: '5500 ฿ผน',
-      rating: 4.5,
-      reviews: 1500
-    },
-    {
-      id: 6,
-      image: '/src/assets/courses/IELTS speaking.jpg',
-      title: 'TOEFL PREPARATION',
-      description: 'Comprehensive TOEFL exam preparation with practice tests and expert guidance.',
-      price: '5000 ฿ผน',
-      rating: 4.5,
-      reviews: 1600
-    },
-    {
-      id: 7,
-      image: '/src/assets/courses/ielts writing.jpg',
-      title: 'CONVERSATION FLUENCY',
-      description: 'Develop natural conversational English through interactive role-play scenarios.',
-      price: '3600 ฿ผน',
-      rating: 4.5,
-      reviews: 1350
-    },
-    {
-      id: 8,
-      image: '/src/assets/courses/daily english.jpg',
-      title: 'ADVANCED LISTENING',
-      description: 'Improve your listening skills with real-world English from movies and podcasts.',
-      price: '3800 ฿ผน',
-      rating: 4.5,
-      reviews: 1300
-    },
-    {
-      id: 9,
-      image: '/src/assets/courses/grammer.jpg',
-      title: 'PRONUNCIATION MASTER',
-      description: 'Perfect your English pronunciation with detailed audio and video explanations.',
-      price: '3200 ฿ผน',
-      rating: 4.5,
-      reviews: 1100
-    },
-    {
-      id: 10,
-      image: '/src/assets/courses/master communation.jpg',
-      title: 'VOCABULARY BUILDER',
-      description: 'Expand your English vocabulary with context-based learning and memory techniques.',
-      price: '2800 ฿ผน',
-      rating: 4.5,
-      reviews: 1400
-    },
-    {
-      id: 11,
-      image: '/src/assets/courses/IELTS speaking.jpg',
-      title: 'BUSINESS ENGLISH',
-      description: 'Master professional communication for workplace success and international business.',
-      price: '4000 ฿ผน',
-      rating: 4.5,
-      reviews: 1200
-    },
-    {
-      id: 12,
-      image: '/src/assets/courses/ielts writing.jpg',
-      title: 'ADVANCED CONVERSATION',
-      description: 'Develop natural conversational English through interactive role-play scenarios.',
-      price: '3600 ฿ผน',
-      rating: 4.5,
-      reviews: 1350
-    },
-  ]
-
+  const allCourses = getAllCourses()
   const coursesPerPage = 6
-  const totalPages = Math.ceil(allCourses.length / coursesPerPage)
-  const startIndex = (currentPage - 1) * coursesPerPage
-  const currentCourses = allCourses.slice(startIndex, startIndex + coursesPerPage)
+  const totalPages = getTotalPages(coursesPerPage)
+  const currentCourses = getCoursesByPage(currentPage, coursesPerPage)
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber)
@@ -151,6 +40,7 @@ function Courses() {
             {currentCourses.map((course) => (
               <CourseCard
                 key={course.id}
+                id={course.id}
                 image={course.image}
                 title={course.title}
                 description={course.description}

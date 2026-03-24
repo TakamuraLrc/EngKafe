@@ -1,11 +1,19 @@
-function CourseCard({ image, title, description, price, rating, reviews }) {
+import { useNavigate } from 'react-router-dom'
+
+function CourseCard({ id, image, title, description, price, rating, reviews }) {
+  const navigate = useNavigate()
+
+  const handleViewDetails = () => {
+    navigate(`/courses/${id}`)
+  }
+
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow flex gap-3 p-3">
       {/* Image Container - Left */}
       <div className="relative w-64 bg-gray-300 overflow-hidden shrink-0 rounded-lg">
         <img 
           src={image} 
-          alt="IELTS SPEAKING" 
+          alt={title} 
           className="w-full h-full object-cover"
         />
       </div>
@@ -41,7 +49,10 @@ function CourseCard({ image, title, description, price, rating, reviews }) {
 
         {/* Buttons */}
         <div className="flex gap-2">
-          <button className="flex-1 px-4 py-1.5 border-2 border-pink-400 text-gray-700 font-semibold text-sm rounded-lg hover:bg-gray-50 transition-colors">
+          <button 
+            onClick={handleViewDetails}
+            className="flex-1 px-4 py-1.5 border-2 border-pink-400 text-gray-700 font-semibold text-sm rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
+          >
             View details
           </button>
           <button className="flex-1 px-4 py-1.5 bg-pink-300 text-gray-900 font-semibold text-sm rounded-lg hover:bg-pink-400 transition-colors">

@@ -4,6 +4,7 @@ import Login from "./pages/Login"
 import Register from "./pages/Register"
 import ForgotPassword from "./pages/ForgotPassword"
 import Courses from "./pages/Courses"
+import CourseDetail from "./pages/CourseDetail"
 import Blog from "./pages/blog"
 import Service from "./pages/Service"
 
@@ -16,6 +17,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/courses" element={<Courses />} />
+        <Route path="/courses/:courseId" element={<CourseDetail />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/service" element={<Service />} />
       </Routes>
