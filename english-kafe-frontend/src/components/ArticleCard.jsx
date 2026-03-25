@@ -1,4 +1,12 @@
-function ArticleCard({ image, title, description, authorLogo, authorName, date }) {
+import { useNavigate } from 'react-router-dom'
+
+function ArticleCard({ id, image, title, description, authorLogo, authorName, date }) {
+  const navigate = useNavigate()
+
+  const handleReadMore = () => {
+    navigate('/blog')
+  }
+
   return (
     <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-lg transition-shadow p-5">
       {/* Image Container */}
@@ -38,7 +46,11 @@ function ArticleCard({ image, title, description, authorLogo, authorName, date }
           </div>
 
           {/* Arrow Button */}
-          <button className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity" style={{backgroundColor: "#F5C6D8"}}>
+          <button 
+            onClick={handleReadMore}
+            className="w-10 h-10 rounded-full flex items-center justify-center hover:opacity-80 transition-opacity cursor-pointer" 
+            style={{backgroundColor: "#F5C6D8"}}
+          >
             <span className="text-lg text-gray-900">→</span>
           </button>
         </div>

@@ -1,14 +1,27 @@
 import { useParams, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import Navbar from '../components/Navbar'
-import ContactSection from '../components/ContactSection'
 import Footer from '../components/Footer'
-import { getCourseById } from '../services/courseService'
+import CourseCard from '../components/CourseCard'
+import { getCourseById, coursesData } from '../services/courseService'
 
 function CourseDetail() {
   const { courseId } = useParams()
   const navigate = useNavigate()
+  const [currentPage, setCurrentPage] = useState(1)
 
   const course = getCourseById(courseId)
+  
+  // Related courses setup
+  const relatedCourses = coursesData.filter(c => c.id !== course?.id)
+  const coursesPerPage = 4
+  const totalPages = Math.ceil(relatedCourses.length / coursesPerPage)
+  const startIndex = (currentPage - 1) * coursesPerPage
+  const currentRelatedCourses = relatedCourses.slice(startIndex, startIndex + coursesPerPage)
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber)
+  }
 
   if (!course) {
     return (
@@ -115,7 +128,10 @@ function CourseDetail() {
                   <div className="text-4xl font-bold text-gray-900">
                     {course.price}
                   </div>
-                  <button className="bg-pink-300 hover:bg-pink-400 text-gray-900 font-bold py-4 px-12 rounded-full transition-colors text-lg">
+                  <button 
+                    onClick={() => navigate(`/enroll/${course.id}`)}
+                    className="bg-pink-300 hover:bg-pink-400 text-gray-900 font-bold py-4 px-12 rounded-full transition-colors text-lg"
+                  >
                     Enroll Now
                   </button>
                 </div>
@@ -125,8 +141,107 @@ function CourseDetail() {
         </div>
       </div>
 
-      {/* Contact Section */}
-      <ContactSection />
+      {/* Related Courses Section */}
+      <div className="px-4 md:px-10 py-16 bg-pink-50">
+        <div className="max-w-7xl mx-auto">
+          {/* Section Header */}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+              Related Courses
+            </h2>
+            <div className="w-24 h-1 bg-gray-900 mx-auto"></div>
+          </div>
+
+          {/* Courses Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {currentRelatedCourses.map((relatedCourse) => (
+              <CourseCard
+                key={relatedCourse.id}
+                id={relatedCourse.id}
+                image={relatedCourse.image}
+                title={relatedCourse.title}
+                description={relatedCourse.description}
+                price={relatedCourse.price}
+                rating={relatedCourse.rating}
+                reviews={relatedCourse.reviews}
+              />
+            ))}
+          </div>
+
+          {/* Pagination */}
+          <div className="flex justify-center items-center gap-2 mt-12">
+            {[...Array(totalPages)].map((_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => handlePageChange(index + 1)}
+                className={`px-4 py-2 rounded-lg font-semibold transition-colors ${
+                  currentPage === index + 1
+                    ? 'bg-gray-900 text-white'
+                    : 'bg-gray-200 text-gray-900 hover:bg-gray-300'
+                }`}
+              >
+                {index + 1}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Why Choose English Kafé Section */}
+      <div className="px-4 md:px-10 py-16 bg-blue-50">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-3xl p-8 md:p-12 shadow-lg">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+              {/* Left Side - Content */}
+              <div>
+                <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                  Why Choose English Kafé Online Courses?
+                </h2>
+                
+                <p className="text-gray-600 text-base leading-relaxed mb-2">
+                  <span className="font-semibold text-gray-700">English Kafé</span> is designed for learners who want real progress, real confidence, and real communication skills.
+                </p>
+                
+                <p className="text-gray-600 text-base leading-relaxed mb-8">
+                  We make learning simple, structured, and effective — so you always know what to study and how to improve.
+                </p>
+
+                <h3 className="text-xl font-bold text-gray-900 mb-6">
+                  What Makes Us Different?
+                </h3>
+
+                <ul className="space-y-4">
+                  {[
+                    'Clear, step-by-step lessons that are easy to follow',
+                    'Practical speaking and real-life communication focus',
+                    'Structured learning paths for steady progress',
+                    'Self-paced videos — learn anytime, anywhere',
+                    'Simple grammar explanations without confusion',
+                    'Confidence-building practice in every lesson',
+                    'Designed for beginners to advanced learners'
+                  ].map((item, index) => (
+                    <li key={index} className="flex items-start gap-4">
+                      <div className="flex-shrink-0 w-6 h-6 bg-black rounded-full flex items-center justify-center mt-1">
+                        <span className="text-white text-sm font-bold">✓</span>
+                      </div>
+                      <span className="text-gray-700 text-base">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Right Side - Logo/Image */}
+              <div className="flex items-center justify-center">
+                <img 
+                  src="/src/assets/Nav/EnglishkafeLogo-Transparent.png" 
+                  alt="English Kafé Logo"
+                  className="w-full max-w-md h-auto"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Footer */}
       <Footer />

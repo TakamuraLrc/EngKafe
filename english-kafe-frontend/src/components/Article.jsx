@@ -1,7 +1,9 @@
 import { useState, useRef } from 'react'
+import { useNavigate } from 'react-router-dom'
 import ArticleCard from "./ArticleCard"
 
 function Article() {
+  const navigate = useNavigate()
   const scrollContainerRef = useRef(null)
   const [isDown, setIsDown] = useState(false)
   const [startX, setStartX] = useState(0)
@@ -42,9 +44,12 @@ function Article() {
               We share easy-to-follow articles that guide students through speaking, vocabulary, and grammar in a friendly way.
             </p>
           </div>
-          <a href="#" className="text-gray-900 font-bold text-lg underline hover:text-gray-700 transition-colors whitespace-nowrap md:mt-2">
+          <button 
+            onClick={() => navigate('/blog')}
+            className="text-gray-900 font-bold text-lg underline hover:text-gray-700 transition-colors whitespace-nowrap md:mt-2 cursor-pointer bg-transparent border-none"
+          >
             See More
-          </a>
+          </button>
         </div>
         {/* Horizontal Scrollable Section */}
         <div 

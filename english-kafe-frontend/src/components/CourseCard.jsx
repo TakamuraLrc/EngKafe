@@ -55,7 +55,10 @@ function CourseCard({ id, image, title, description, price, rating, reviews }) {
           >
             View details
           </button>
-          <button className="flex-1 px-4 py-1.5 bg-pink-300 text-gray-900 font-semibold text-sm rounded-lg hover:bg-pink-400 transition-colors">
+          <button 
+            onClick={() => navigate(`/enroll/${id}`)}
+            className="flex-1 px-4 py-1.5 bg-pink-300 text-gray-900 font-semibold text-sm rounded-lg hover:bg-pink-400 transition-colors"
+          >
             Enroll Now
           </button>
         </div>

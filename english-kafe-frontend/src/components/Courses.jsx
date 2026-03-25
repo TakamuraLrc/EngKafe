@@ -1,6 +1,9 @@
 import CourseCard from "./CourseCard"
+import { useNavigate } from "react-router-dom"
 
 function Courses() {
+  const navigate = useNavigate()
+
   return (
     <section className="px-4 md:px-10 py-12 bg-gray-50">
       <div className="max-w-6xl mx-auto">
@@ -11,6 +14,7 @@ function Courses() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <CourseCard
+            id={2}
             image="/src/assets/courses/ielts speaking.jpg"
             title="IELTS Speaking"
             description="Build confidence with guided speaking practice and real exam-style questions."
@@ -19,6 +23,7 @@ function Courses() {
             reviews="4.5"
           />
           <CourseCard
+            id={3}
             image="/src/assets/courses/ielts writing.jpg"
             title="IELTS WRITING"
             description="Clear structure, grammar guidance, and scoring strategies for stronger essays."
@@ -27,6 +32,7 @@ function Courses() {
             reviews="4.5"
           />
           <CourseCard
+            id={4}
             image="/src/assets/courses/daily english.jpg"
             title="Everyday English"
             description="Practice real-life conversations and vocabulary for daily communication."
@@ -35,6 +41,7 @@ function Courses() {
             reviews="5.0"
           />
           <CourseCard
+            id={1}
             image="/src/assets/courses/grammer.jpg"
             title="Grammar Essentials"
             description="Understand grammar simply and apply it confidently in speaking and writing."
@@ -46,7 +53,11 @@ function Courses() {
 
         {/* View All Courses Button */}
         <div className="flex justify-center mt-8">
-          <button className="font-semibold px-6 py-3 rounded-xl hover:opacity-80 transition-opacity flex items-center gap-2" style={{backgroundColor: "#B5E0F8"}}>
+          <button 
+            onClick={() => navigate('/courses')}
+            className="font-semibold px-6 py-3 rounded-xl hover:opacity-80 transition-opacity flex items-center gap-2" 
+            style={{backgroundColor: "#B5E0F8"}}
+          >
             View All Courses
             <span className="text-lg text-black">→</span>
           </button>
