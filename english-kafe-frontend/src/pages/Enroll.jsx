@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { useState, Fragment } from 'react'
+import { Fragment } from 'react'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { getCourseById } from '../services/courseService'
@@ -7,7 +7,6 @@ import { getCourseById } from '../services/courseService'
 function Enroll() {
   const { courseId } = useParams()
   const navigate = useNavigate()
-  const [showLoginModal, setShowLoginModal] = useState(false)
 
   const course = getCourseById(courseId)
 
@@ -16,15 +15,12 @@ function Enroll() {
 
   const handleEnrollClick = () => {
     if (!isLoggedIn) {
-      setShowLoginModal(true)
+      // Redirect directly to login page if not logged in
+      navigate('/login')
     } else {
       // Navigate to payment page
       navigate(`/payment/${course.id}`)
     }
-  }
-
-  const handleGoToLogin = () => {
-    navigate('/login')
   }
 
   if (!course) {
@@ -190,39 +186,6 @@ function Enroll() {
         {/* Footer */}
         <Footer />
       </div>
-
-      {/* Login Required Modal - Outside main div */}
-      {showLoginModal && (
-        <>
-          <div className="fixed inset-0 z-40" style={{backgroundColor: 'rgba(0, 0, 0, 0.2)'}}></div>
-          <div className="fixed inset-0 flex items-center justify-center z-50 px-4 pointer-events-none">
-            <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl pointer-events-auto">
-              <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Login Required
-              </h2>
-              
-              <p className="text-gray-600 mb-6 leading-relaxed">
-                To complete your enrollment for <span className="font-semibold">{course?.title}</span>, please log in to your account or create a new one.
-              </p>
-
-              <div className="flex gap-3">
-                <button
-                  onClick={() => setShowLoginModal(false)}
-                  className="flex-1 border-2 border-gray-300 text-gray-900 font-bold py-3 px-4 rounded-full hover:bg-gray-50 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleGoToLogin}
-                  className="flex-1 bg-pink-300 hover:bg-pink-400 text-gray-900 font-bold py-3 px-4 rounded-full transition-colors"
-                >
-                  Go to Login
-                </button>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
     </Fragment>
   )
 }
