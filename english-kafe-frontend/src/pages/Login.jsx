@@ -14,6 +14,12 @@ function Login() {
     // Add your login logic here
     setTimeout(() => {
       setLoading(false)
+      // Store login status in localStorage (temporary, will be replaced with real auth)
+      localStorage.setItem('isLoggedIn', 'true')
+      localStorage.setItem('userEmail', email)
+      localStorage.setItem('userName', email.split('@')[0]) // Extract name from email
+      // Use a placeholder profile image that can be easily changed later with backend
+      localStorage.setItem('profileImage', `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`)
       // Redirect to home or dashboard
       navigate('/')
     }, 1000)
