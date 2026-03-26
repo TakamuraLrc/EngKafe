@@ -101,7 +101,7 @@ function Navbar() {
               
               <button
                 onClick={() => {
-                  // navigate to my profile page later
+                  navigate('/my-profile')
                   setShowProfileMenu(false)
                 }}
                 className="w-full text-left px-4 py-3 text-gray-700 hover:bg-blue-50 transition-colors font-medium"

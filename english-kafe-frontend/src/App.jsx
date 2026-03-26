@@ -9,6 +9,7 @@ import Enroll from "./pages/Enroll"
 import Payment from "./pages/Payment"
 import MyCourses from "./pages/MyCourses"
 import MyCourseOrder from "./pages/MyCourseOrder"
+import MyProfile from "./pages/MyProfile"
 import CourseLessons from "./pages/CourseLessons"
 import OrderStatus from "./pages/OrderStatus"
 import Blog from "./pages/blog"
@@ -28,6 +29,7 @@ function App() {
         <Route path="/payment/:courseId" element={<Payment />} />
         <Route path="/my-courses" element={<MyCourses />} />
         <Route path="/my-course-order" element={<MyCourseOrder />} />
+        <Route path="/my-profile" element={<MyProfile />} />
         <Route path="/order-status/:orderId" element={<OrderStatus />} />
         <Route path="/course-lessons/:courseId" element={<CourseLessons />} />
         <Route path="/blog" element={<Blog />} />
