@@ -7,7 +7,13 @@ import TopNav from './components/TopNav'
 import Courses from './pages/CourseManagement/Courses'
 import AddCourse from './pages/CourseManagement/AddCourse'
 import EditCourse from './pages/CourseManagement/EditCourse'
+import CourseDetail from './pages/CourseManagement/CourseDetail'
+import AddLesson from './pages/CourseManagement/AddLesson'
+import EditLesson from './pages/CourseManagement/EditLesson'
 import Users from './pages/UserManagement/Users'
+import Blogs from './pages/BlogManagement/Blogs'
+import AddBlog from './pages/BlogManagement/AddBlog'
+import EditBlog from './pages/BlogManagement/EditBlog'
 import Orders from './pages/OrderManagement/Orders'
 import Instructors from './pages/InstructorManagement/Instructors'
 import Analytics from './pages/Reports/Analytics'
@@ -60,8 +66,14 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/courses" element={<Courses />} />
                   <Route path="/courses/add" element={<AddCourse />} />
+                  <Route path="/courses/:id" element={<CourseDetail />} />
+                  <Route path="/courses/:id/add-lesson" element={<AddLesson />} />
+                  <Route path="/courses/:id/edit-lesson/:lessonId" element={<EditLesson />} />
                   <Route path="/courses/edit/:id" element={<EditCourse />} />
                   <Route path="/users" element={<Users />} />
+                  <Route path="/blog" element={<Blogs />} />
+                  <Route path="/blog/add" element={<AddBlog />} />
+                  <Route path="/blog/edit/:id" element={<EditBlog />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/instructors" element={<Instructors />} />
                   <Route path="/analytics" element={<Analytics />} />
@@ -77,8 +89,14 @@ function App() {
                   <Route path="/dashboard" element={<Dashboard />} />
                   <Route path="/courses" element={<Courses />} />
                   <Route path="/courses/add" element={<AddCourse />} />
+                  <Route path="/courses/:id" element={<CourseDetail />} />
+                  <Route path="/courses/:id/add-lesson" element={<AddLesson />} />
+                  <Route path="/courses/:id/edit-lesson/:lessonId" element={<EditLesson />} />
                   <Route path="/courses/edit/:id" element={<EditCourse />} />
                   <Route path="/users" element={<Users />} />
+                  <Route path="/blog" element={<Blogs />} />
+                  <Route path="/blog/add" element={<AddBlog />} />
+                  <Route path="/blog/edit/:id" element={<EditBlog />} />
                   <Route path="/orders" element={<Orders />} />
                   <Route path="/instructors" element={<Instructors />} />
                   <Route path="/analytics" element={<Analytics />} />

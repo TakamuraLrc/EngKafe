@@ -2,6 +2,7 @@ import { Plus } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import CourseCard from '../../components/CourseCard'
+import ConfirmationModal from '../../components/ConfirmationModal'
 import IeltsSpaking from '../../assets/images/IELTS speaking.jpg'
 import IeltsWriting from '../../assets/images/ielts writing.jpg'
 import Grammar from '../../assets/images/grammer.jpg'
@@ -60,6 +61,8 @@ function Courses() {
   ]
 
   const [courses, setCourses] = useState(defaultCourses)
+  const [showConfirmation, setShowConfirmation] = useState(false)
+  const [courseToDelete, setCourseToDelete] = useState(null)
 
   // Load courses from localStorage on mount
   useEffect(() => {
@@ -70,9 +73,14 @@ function Courses() {
     }
   }, [])
 
-  const handleDelete = (id) => {
-    if (window.confirm('Are you sure you want to delete this course?')) {
-      const updatedCourses = courses.filter(course => course.id !== id)
+  const handleDeleteClick = (id) => {
+    setCourseToDelete(id)
+    setShowConfirmation(true)
+  }
+
+  const handleConfirmDelete = () => {
+    if (courseToDelete) {
+      const updatedCourses = courses.filter(course => course.id !== courseToDelete)
       setCourses(updatedCourses)
       // Update localStorage
       const newCourses = updatedCourses.filter(c => c.id > 5)
@@ -82,6 +90,13 @@ function Courses() {
         localStorage.removeItem('courses')
       }
     }
+    setShowConfirmation(false)
+    setCourseToDelete(null)
+  }
+
+  const handleCancelDelete = () => {
+    setShowConfirmation(false)
+    setCourseToDelete(null)
   }
 
   const handleEdit = (id) => {
@@ -109,10 +124,22 @@ function Courses() {
             key={course.id}
             course={course}
             onEdit={handleEdit}
-            onDelete={handleDelete}
+            onDelete={handleDeleteClick}
           />
         ))}
       </div>
+
+      {/* Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={showConfirmation}
+        title="Delete Course"
+        message="Are you sure you want to delete this course? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        onConfirm={handleConfirmDelete}
+        onCancel={handleCancelDelete}
+        isDangerous={true}
+      />
     </div>
   )
 }

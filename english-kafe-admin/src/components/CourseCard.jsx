@@ -1,6 +1,13 @@
 import { Star, Trash2, Edit2 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 function CourseCard({ course, onEdit, onDelete }) {
+  const navigate = useNavigate()
+
+  const handleAddLesson = () => {
+    navigate(`/courses/${course.id}`)
+  }
+
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <div className="flex gap-4 p-4">
@@ -49,7 +56,7 @@ function CourseCard({ course, onEdit, onDelete }) {
           {/* Action Buttons */}
           <div className="flex items-center gap-3">
             <button
-              onClick={() => onEdit(course.id)}
+              onClick={handleAddLesson}
               className="flex items-center justify-center gap-2 bg-pink-300 text-gray-800 px-6 py-2 rounded-lg hover:bg-pink-400 transition-colors font-medium text-sm flex-1"
             >
               Add Lesson
