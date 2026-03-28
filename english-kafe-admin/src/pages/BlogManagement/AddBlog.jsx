@@ -168,19 +168,19 @@ function AddBlog() {
   return (
     <div className="min-h-screen bg-white">
       {/* Header */}
-      <div className="border-b border-gray-200 px-8 py-4">
-        <div className="flex items-center justify-between">
+      <div className="border-b border-gray-200 px-4 sm:px-6 md:px-8 py-4">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 sm:gap-0">
           <button
             onClick={() => navigate('/blog')}
-            className="flex items-center gap-2 text-gray-700 hover:text-gray-900"
+            className="flex items-center gap-2 text-gray-700 hover:text-gray-900 text-sm sm:text-base"
           >
-            <ArrowLeft size={20} />
+            <ArrowLeft size={18} className="sm:w-5 sm:h-5" />
             <span>Back</span>
           </button>
-          <h1 className="text-3xl font-bold text-gray-900">Add Blog</h1>
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 flex-1 text-center">Add Blog</h1>
           <button
             onClick={handleSubmit}
-            className="flex items-center gap-2 bg-pink-300 text-gray-800 px-6 py-2 rounded-lg hover:bg-pink-400 transition-colors font-medium"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 bg-pink-300 text-gray-800 px-4 sm:px-6 py-2 rounded-lg hover:bg-pink-400 transition-colors font-medium text-sm sm:text-base"
           >
             publish
           </button>
@@ -188,14 +188,14 @@ function AddBlog() {
       </div>
 
       {/* Editor Content */}
-      <div className="p-8">
-        <div className="grid grid-cols-2 gap-12 max-w-6xl">
+      <div className="p-4 sm:p-6 md:p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12 max-w-6xl mx-auto">
           {/* Left Column - Image Upload */}
           <div>
-            <label className="block text-sm font-semibold text-gray-900 mb-4">
+            <label className="block text-xs sm:text-sm font-semibold text-gray-900 mb-3 md:mb-4">
               Upload course image :
             </label>
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 flex flex-col items-center justify-center min-h-96 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer relative group">
+            <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 sm:p-8 md:p-12 flex flex-col items-center justify-center min-h-64 sm:min-h-80 md:min-h-96 bg-gray-50 hover:bg-gray-100 transition-colors cursor-pointer relative group">
               <input
                 type="file"
                 accept="image/*"
@@ -209,11 +209,11 @@ function AddBlog() {
                   className="w-full h-full object-cover rounded-lg"
                 />
               ) : (
-                <div className="flex flex-col items-center gap-3 text-gray-500">
-                  <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div className="flex flex-col items-center gap-2 sm:gap-3 text-gray-500">
+                  <svg className="w-6 h-6 sm:w-8 sm:h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                   </svg>
-                  <span className="text-sm font-medium">Upload</span>
+                  <span className="text-xs sm:text-sm font-medium">Upload</span>
                 </div>
               )}
             </div>
@@ -228,7 +228,7 @@ function AddBlog() {
               value={formData.title}
               onChange={handleInputChange}
               placeholder="Title"
-              className="w-full text-4xl font-bold text-gray-900 placeholder-gray-400 outline-none border-none focus:ring-0"
+              className="w-full text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 placeholder-gray-400 outline-none border-none focus:ring-0"
             />
 
             {/* Content - Rich Text Editor */}
@@ -251,10 +251,10 @@ function AddBlog() {
                   setIsEditorEmpty(true)
                 }
               }}
-              className="w-full h-80 px-0 py-4 text-gray-700 outline-none border-none focus:ring-0 resize-none whitespace-pre-wrap wrap-break-word overflow-y-auto"
+              className="w-full h-64 sm:h-80 px-0 py-4 text-sm sm:text-base text-gray-700 outline-none border-none focus:ring-0 resize-none whitespace-pre-wrap wrap-break-word overflow-y-auto"
               style={{
                 outline: 'none',
-                minHeight: '320px',
+                minHeight: '256px',
                 color: isEditorEmpty ? '#d1d5db' : '#374151',
               }}
             >

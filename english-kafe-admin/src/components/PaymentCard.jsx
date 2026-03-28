@@ -7,11 +7,11 @@ function PaymentCard({ payment, onApprove, onDeny, status = 'review' }) {
   return (
     <>
       <div className="bg-white rounded-lg shadow-md border border-gray-200 hover:shadow-lg transition-shadow overflow-hidden">
-        <div className="flex gap-4 p-6 pt-4 relative">
+        <div className="flex flex-col lg:flex-row gap-3 lg:gap-4 p-4 sm:p-6 relative">
           {/* Left Side - Payment Slip */}
           <button
             onClick={() => setShowSlipModal(true)}
-            className="w-32 shrink-0 relative group hover:opacity-80 transition-opacity"
+            className="w-full lg:w-32 lg:shrink-0 relative group hover:opacity-80 transition-opacity"
             title="Click to view slip"
           >
             <div className="bg-gray-50 rounded-lg p-3 border border-gray-200 group-hover:border-pink-300">
@@ -24,7 +24,7 @@ function PaymentCard({ payment, onApprove, onDeny, status = 'review' }) {
               {/* Amount */}
               <div className="text-center mb-4 pb-4 border-b border-gray-300">
                 <div className="text-xs text-gray-500 mb-1">From</div>
-                <div className="font-bold text-gray-900">{payment.amount}</div>
+                <div className="font-bold text-gray-900 text-sm sm:text-base">{payment.amount}</div>
               </div>
 
               {/* Payment Details */}
@@ -49,46 +49,46 @@ function PaymentCard({ payment, onApprove, onDeny, status = 'review' }) {
           </button>
 
           {/* Right Side - User & Course Info */}
-          <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col justify-between">
             {/* User Info - Improved Layout */}
-            <div className="flex items-start gap-4 mb-6 pb-4 border-b border-gray-200">
+            <div className="flex items-start gap-3 sm:gap-4 mb-4 sm:mb-6 pb-4 sm:pb-4 border-b border-gray-200">
               <img
                 src={payment.userAvatar}
                 alt={payment.userName}
-                className="w-16 h-16 rounded-full object-cover shrink-0"
+                className="w-12 h-12 sm:w-16 sm:h-16 rounded-full object-cover shrink-0"
               />
-              <div className="flex-1">
-                <div className="font-semibold text-gray-900 text-lg">{payment.userName}</div>
-                <div className="text-sm text-gray-500">{payment.userDate}</div>
+              <div className="flex-1 min-w-0">
+                <div className="font-semibold text-gray-900 text-base sm:text-lg truncate">{payment.userName}</div>
+                <div className="text-xs sm:text-sm text-gray-500 truncate">{payment.userDate}</div>
               </div>
             </div>
 
             {/* Course Info */}
-            <div className="mb-6 flex-1">
-              <div className="text-gray-700 mb-1">{payment.courseName}</div>
-              <div className="text-2xl font-bold text-gray-900">{payment.coursePrice}</div>
+            <div className="mb-3 sm:mb-6 flex-1">
+              <div className="text-gray-700 text-xs sm:text-sm mb-1 truncate">{payment.courseName}</div>
+              <div className="text-lg sm:text-2xl font-bold text-gray-900">{payment.coursePrice}</div>
             </div>
 
             {/* Denial Reason - Show for Denied Status */}
             {status === 'denied' && payment.denialReason && (
-              <div className="mb-6 p-3 bg-red-50 rounded-lg border border-red-200">
+              <div className="mb-3 sm:mb-6 p-2 sm:p-3 bg-red-50 rounded-lg border border-red-200">
                 <div className="text-xs font-semibold text-red-700 mb-1">Reason: Incorrect Transfer slip</div>
-                <div className="text-sm text-gray-700">{payment.denialReason}</div>
+                <div className="text-xs sm:text-sm text-gray-700">{payment.denialReason}</div>
               </div>
             )}
 
             {/* Action Buttons */}
             {status === 'review' && (
-              <div className="flex gap-3">
+              <div className="flex gap-2 sm:gap-3">
                 <button
                   onClick={() => onDeny(payment.id)}
-                  className="flex-1 px-4 py-2 rounded-lg font-semibold text-white bg-pink-500 hover:bg-pink-600 transition-colors"
+                  className="flex-1 px-3 sm:px-4 py-2 rounded-lg font-semibold text-white text-xs sm:text-sm bg-pink-500 hover:bg-pink-600 transition-colors"
                 >
                   Deny
                 </button>
                 <button
                   onClick={() => onApprove(payment.id)}
-                  className="flex-1 px-4 py-2 rounded-lg font-semibold text-white bg-green-600 hover:bg-green-700 transition-colors"
+                  className="flex-1 px-3 sm:px-4 py-2 rounded-lg font-semibold text-white text-xs sm:text-sm bg-green-600 hover:bg-green-700 transition-colors"
                 >
                   Approve
                 </button>
@@ -97,12 +97,12 @@ function PaymentCard({ payment, onApprove, onDeny, status = 'review' }) {
 
             {/* Status Badges - Bottom Right */}
             {status === 'approved' && (
-              <div className="absolute bottom-4 right-6 bg-green-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+              <div className="lg:absolute lg:bottom-4 lg:right-6 bg-green-500 text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold mt-3 lg:mt-0 w-fit">
                 Approved
               </div>
             )}
             {status === 'denied' && (
-              <div className="absolute bottom-4 right-6 bg-red-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+              <div className="lg:absolute lg:bottom-4 lg:right-6 bg-red-500 text-white px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-semibold mt-3 lg:mt-0 w-fit">
                 Denied
               </div>
             )}
