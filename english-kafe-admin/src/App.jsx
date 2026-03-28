@@ -14,7 +14,7 @@ import Users from './pages/UserManagement/Users'
 import Blogs from './pages/BlogManagement/Blogs'
 import AddBlog from './pages/BlogManagement/AddBlog'
 import EditBlog from './pages/BlogManagement/EditBlog'
-import Orders from './pages/OrderManagement/Orders'
+import ReviewPayment from './pages/Payment/ReviewPayment'
 import Instructors from './pages/InstructorManagement/Instructors'
 import Analytics from './pages/Reports/Analytics'
 import Settings from './pages/Settings/GeneralSettings'
@@ -74,7 +74,7 @@ function App() {
                   <Route path="/blog" element={<Blogs />} />
                   <Route path="/blog/add" element={<AddBlog />} />
                   <Route path="/blog/edit/:id" element={<EditBlog />} />
-                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/review-payment" element={<ReviewPayment />} />
                   <Route path="/instructors" element={<Instructors />} />
                   <Route path="/analytics" element={<Analytics />} />
                   <Route path="/settings" element={<Settings />} />
@@ -97,7 +97,7 @@ function App() {
                   <Route path="/blog" element={<Blogs />} />
                   <Route path="/blog/add" element={<AddBlog />} />
                   <Route path="/blog/edit/:id" element={<EditBlog />} />
-                  <Route path="/orders" element={<Orders />} />
+                  <Route path="/review-payment" element={<ReviewPayment />} />
                   <Route path="/instructors" element={<Instructors />} />
                   <Route path="/analytics" element={<Analytics />} />
                   <Route path="/settings" element={<Settings />} />

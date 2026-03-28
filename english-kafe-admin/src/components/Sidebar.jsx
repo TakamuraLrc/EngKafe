@@ -29,7 +29,7 @@ function Sidebar() {
     { label: 'Manage course', path: '/courses', icon: BookOpen },
     { label: 'Manage blog', path: '/blog', icon: FileText },
     { label: 'Manage user', path: '/users', icon: Users },
-    { label: 'Review payment', path: '/orders', icon: CreditCard },
+    { label: 'Review payment', path: '/review-payment', icon: CreditCard },
   ]
 
   return (
