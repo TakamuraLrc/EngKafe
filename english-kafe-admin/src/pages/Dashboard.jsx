@@ -1,6 +1,20 @@
-import { BookOpen, FileText, Users, CreditCard, Edit, Trash2, Eye } from 'lucide-react'
+import { BookOpen, FileText, Users, CreditCard, Edit, Trash2, Eye, EyeOff, X } from 'lucide-react'
+import { useState } from 'react'
+import ConfirmationModal from '../components/ConfirmationModal'
 
 function Dashboard() {
+  const [users, setUsers] = useState([
+    { id: 1, name: 'Alex James', email: 'alexjames123@gmail.com', dateCreated: '21 Mar 2026', purchasedCourse: 'N/A', isActive: true },
+    { id: 2, name: 'Adrian', email: 'adrian884@gmail.com', dateCreated: '21 Mar 2026', purchasedCourse: 'N/A', isActive: true },
+    { id: 3, name: 'Sophia', email: 'sophia663@gmail.com', dateCreated: '22 Mar 2026', purchasedCourse: 'N/A', isActive: true },
+    { id: 4, name: 'Olivia', email: 'olivia333@gmail.com', dateCreated: '23 Mar 2026', purchasedCourse: 'N/A', isActive: true },
+    { id: 5, name: 'Daniel', email: 'daniel89@gmail.com', dateCreated: '28 Mar 2026', purchasedCourse: 'N/A', isActive: true },
+  ])
+
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false)
+  const [deactivateModalOpen, setDeactivateModalOpen] = useState(false)
+  const [selectedUserId, setSelectedUserId] = useState(null)
+
   const stats = [
     { 
       label: 'Course', 
@@ -28,13 +42,33 @@ function Dashboard() {
     },
   ]
 
-  const recentUsers = [
-    { id: 1, name: 'Alex James', email: 'alexjames123@gmail.com', dateCreated: '21 Mar 2026', purchasedCourse: 'N/A' },
-    { id: 2, name: 'Adrian', email: 'adrian884@gmail.com', dateCreated: '21 Mar 2026', purchasedCourse: 'N/A' },
-    { id: 3, name: 'Sophia', email: 'sophia663@gmail.com', dateCreated: '22 Mar 2026', purchasedCourse: 'N/A' },
-    { id: 4, name: 'Olivia', email: 'olivia333@gmail.com', dateCreated: '23 Mar 2026', purchasedCourse: 'N/A' },
-    { id: 5, name: 'Daniel', email: 'daniel89@gmail.com', dateCreated: '28 Mar 2026', purchasedCourse: 'N/A' },
-  ]
+  const handleDeleteClick = (userId) => {
+    setSelectedUserId(userId)
+    setDeleteModalOpen(true)
+  }
+
+  const handleConfirmDelete = () => {
+    setUsers(users.filter(user => user.id !== selectedUserId))
+    setDeleteModalOpen(false)
+    setSelectedUserId(null)
+  }
+
+  const handleDeactivateClick = (userId) => {
+    setSelectedUserId(userId)
+    setDeactivateModalOpen(true)
+  }
+
+  const handleConfirmDeactivate = () => {
+    setUsers(users.map(user =>
+      user.id === selectedUserId
+        ? { ...user, isActive: !user.isActive }
+        : user
+    ))
+    setDeactivateModalOpen(false)
+    setSelectedUserId(null)
+  }
+
+  const recentUsers = users
 
   return (
     <div className="p-4 sm:p-6 md:p-8 bg-gray-50 min-h-screen">
@@ -80,24 +114,34 @@ function Dashboard() {
             </thead>
             <tbody>
               {recentUsers.map((user, index) => (
-                <tr key={user.id} className={`border-b border-gray-200 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-pink-50 transition-colors`}>
+                <tr key={user.id} className={`border-b border-gray-200 ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'} hover:bg-pink-50 transition-colors ${user.isActive ? '' : 'bg-gray-100 opacity-60'}`}>
                   <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                     <div className="flex items-center gap-2 sm:gap-3">
-                      <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center text-white text-xs sm:text-sm font-semibold shrink-0">
+                      <div className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gradient-to-br from-pink-400 to-rose-400 flex items-center justify-center text-white text-xs sm:text-sm font-semibold shrink-0 ${!user.isActive ? 'opacity-50' : ''}`}>
                         {user.name.charAt(0)}
                       </div>
-                      <span className="text-xs sm:text-sm font-medium text-gray-900 truncate">{user.name}</span>
+                      <div className="min-w-0">
+                        <span className={`text-xs sm:text-sm font-medium truncate block ${user.isActive ? 'text-gray-900' : 'text-gray-500'}`}>{user.name}</span>
+                        {!user.isActive && <div className="text-xs text-red-500 font-semibold">Inactive</div>}
+                      </div>
                     </div>
                   </td>
-                  <td className="hidden sm:table-cell px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600 truncate">{user.email}</td>
-                  <td className="hidden md:table-cell px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600">{user.dateCreated}</td>
-                  <td className="hidden lg:table-cell px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm text-gray-600">{user.purchasedCourse}</td>
+                  <td className={`hidden sm:table-cell px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm truncate ${user.isActive ? 'text-gray-600' : 'text-gray-400'}`}>{user.email}</td>
+                  <td className={`hidden md:table-cell px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm ${user.isActive ? 'text-gray-600' : 'text-gray-400'}`}>{user.dateCreated}</td>
+                  <td className={`hidden lg:table-cell px-3 sm:px-4 md:px-6 py-3 sm:py-4 text-xs sm:text-sm ${user.isActive ? 'text-gray-600' : 'text-gray-400'}`}>{user.purchasedCourse}</td>
                   <td className="px-3 sm:px-4 md:px-6 py-3 sm:py-4">
                     <div className="flex items-center gap-1 sm:gap-2">
-                      <button className="p-1.5 sm:p-2 hover:bg-blue-50 rounded-lg transition-colors" title="View user">
-                        <Eye size={16} className="sm:w-[18px] sm:h-[18px] text-gray-600" />
+                      <button
+                        onClick={() => handleDeactivateClick(user.id)}
+                        className={`p-1.5 sm:p-2 rounded-lg transition-colors shrink-0 ${user.isActive ? 'text-green-600 hover:bg-green-100' : 'text-red-600 hover:bg-red-100'}`}
+                        title={user.isActive ? 'Deactivate' : 'Activate'}
+                      >
+                        {user.isActive ? <Eye size={16} className="sm:w-[18px] sm:h-[18px]" /> : <EyeOff size={16} className="sm:w-[18px] sm:h-[18px]" />}
                       </button>
-                      <button className="p-1.5 sm:p-2 hover:bg-red-50 rounded-lg transition-colors" title="Delete user">
+                      <button
+                        onClick={() => handleDeleteClick(user.id)}
+                        className="p-1.5 sm:p-2 hover:bg-red-100 rounded-lg transition-colors shrink-0" title="Delete user"
+                      >
                         <Trash2 size={16} className="sm:w-[18px] sm:h-[18px] text-red-600" />
                       </button>
                     </div>
@@ -108,6 +152,28 @@ function Dashboard() {
           </table>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={deleteModalOpen}
+        title="Delete User"
+        message="Are you sure you want to delete this user? This action cannot be undone."
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setDeleteModalOpen(false)}
+        confirmText="Delete"
+        confirmColor="red"
+      />
+
+      {/* Deactivate/Activate Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={deactivateModalOpen}
+        title={users.find(u => u.id === selectedUserId)?.isActive ? 'Deactivate User' : 'Activate User'}
+        message={users.find(u => u.id === selectedUserId)?.isActive ? 'Are you sure you want to deactivate this user?' : 'Are you sure you want to activate this user?'}
+        onConfirm={handleConfirmDeactivate}
+        onCancel={() => setDeactivateModalOpen(false)}
+        confirmText={users.find(u => u.id === selectedUserId)?.isActive ? 'Deactivate' : 'Activate'}
+        confirmColor="blue"
+      />
     </div>
   )
 }
